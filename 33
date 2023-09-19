@@ -1,0 +1,32 @@
+def get_integer_list():
+    input_str = input("Enter integers separated by spaces ==> ")
+    input_list = input_str.split()
+
+    if input_list == ['done']:
+        return None
+
+    try:
+        integer_list = [int(item) for item in input_list]
+        if len(integer_list) < 2:
+            raise ValueError("must enter more than one integer")
+        return integer_list
+    except ValueError:
+        print("must enter integers separated by spaces")
+        return get_integer_list()
+
+def calculate_sum_recursive(integer_list):
+    if len(integer_list) == 0:
+        return 0
+    else:
+        return integer_list[0] + calculate_sum_recursive(integer_list[1:])
+
+if __name__ == "__main__":
+    total_sum = 0
+    while True:
+        integers = get_integer_list()
+        if integers is None:
+            break
+        total_sum += calculate_sum_recursive(integers)
+    
+    print("The sum of the input integers is ==> " + str(total_sum))
+    print("program terminated. good bye !!")

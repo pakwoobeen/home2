@@ -1,0 +1,21 @@
+import re
+
+# mbox.txt 파일을 읽고 내용을 lines 리스트에 저장합니다.
+with open('mbox.txt', 'r') as file:
+    lines = file.readlines()
+
+# 정규 표현식을 사용하여 'New Revision' 포맷을 찾고 숫자를 추출합니다.
+revision_pattern = re.compile(r'New Revision : (\d+)')
+revisions = [int(revision_pattern.search(line).group(1)) for line in lines if revision_pattern.search(line)]
+
+# 숫자들의 평균값을 계산합니다.
+if revisions:
+    total_revisions = len(revisions)
+    average_revision = sum(revisions) / total_revisions
+else:
+    total_revisions = 0
+    average_revision = 0
+
+# 결과를 출력합니다.
+print(f"Total {total_revisions} lines are matched")
+print(f"Average : {average_revision:.4f}")
